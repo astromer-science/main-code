@@ -1,0 +1,13 @@
+*ted_hrlr_translate_pt_en_converter*
+*__pycache__
+data/raw_data
+data/records
+.ipynb_checkpoints/
+runs
+.Trash-0/
+weights
+presentation/backup/
+big_atlas.zip
+user
+literature
+results
