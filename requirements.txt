@@ -1,10 +1,12 @@
-tensorboard_plugin_profile
-googledrivedownloader
+tensorflow==2.14
 scikit-learn
 notebook
-graphviz
 seaborn
+PyDrive
 joblib
+polars==0.20.10
 pandas
-pydot
+mlflow
+gdown
 tqdm
+toml
