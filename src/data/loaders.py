@@ -71,6 +71,7 @@ def load_records(records_dir):
     if len(record_files) == 0:
         record_files = glob.glob(os.path.join(records_dir, '*', '*.record'))
     raw_dataset = tf.data.TFRecordDataset(record_files)
+
     raw_dataset = raw_dataset.map(lambda x: deserialize(x, records_dir))
     return raw_dataset
 
@@ -208,7 +209,7 @@ def get_loader(dataset,
                cache=False,
                aversion='base'):
 
-
+    
     assert isinstance(dataset, (list, str)), '[ERROR] Invalid format'
     assert batch_size is not None, '[ERROR] Undefined batch size'
     if same_frac is None:
@@ -223,7 +224,7 @@ def get_loader(dataset,
 
     if isinstance(dataset, str):
         dataset = load_records(records_dir=dataset)
- 
+    
     if shuffle:
         SHUFFLE_BUFFER = 10000
         dataset = dataset.shuffle(SHUFFLE_BUFFER)

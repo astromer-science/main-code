@@ -22,7 +22,6 @@ def build_model(params, return_weights=False):
     
     
     if params['arch'] == 'zero':
-        print('[INFO] Zero architecture loaded')
         model = get_Zero(num_layers=params['num_layers'],
                            d_model=params['head_dim']*params['num_heads'],
                            num_heads=params['num_heads'],
@@ -39,7 +38,6 @@ def build_model(params, return_weights=False):
                            temperature=params['temperature'])
 
     if params['arch'] == 'base':
-        print('[INFO] Loading BASE')
         model = get_Base(num_layers=params['num_layers'],
                          num_heads=params['num_heads'],
                          head_dim=params['head_dim'],
@@ -189,7 +187,7 @@ def build_classifier(astromer, params, astromer_trainable, num_cls=None, arch='a
 class CustomModel(tf.keras.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+
     def predict_step(self, data):
         x, y = data
         y_pred = self(x, training=False)

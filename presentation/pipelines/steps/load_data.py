@@ -1,5 +1,6 @@
 import tensorflow as tf
 import pandas as pd
+import toml
 import os
 
 from src.data import get_loader
@@ -23,7 +24,13 @@ def build_loader(data_path,
 
     if clf_mode:
         print('Classification Mode')
-        num_cls = pd.read_csv(os.path.join(data_path, 'objects.csv')).shape[0]
+        try:
+            num_cls = pd.read_csv(os.path.join(data_path, 'objects.csv')).shape[0]
+        except:
+            with open(os.path.join(data_path, 'train', 'config.toml')) as handle:
+                config = toml.load(handle)
+                metadata = pd.read_parquet(config['context_features']['path'])
+                num_cls = len(metadata['Class'].unique())
         probed  = 1.
         random  = 0.
         same    = 0.
@@ -82,7 +89,7 @@ def build_loader(data_path,
         if not os.path.isdir(val_path):
             val_path = os.path.join(data_path, 'val')    
             print('[INFO] Changing path: ', val_path)
-            
+        
         train_loader = get_loader(os.path.join(data_path, 'train'),
                                     batch_size=batch_size,
                                     window_size=params['window_size'],

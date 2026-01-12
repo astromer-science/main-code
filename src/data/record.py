@@ -493,7 +493,7 @@ def deserialize(sample, records_path=None):
 
     # Add sequence to the input dictionary
     input_dict['input'] = tf.stack(casted_inp_parameters, axis=2)[0]
-    
+
     try:
         input_dict['length'] = tf.shape(input_dict['input'])[0]
         # Compatibility with keys in the following code
